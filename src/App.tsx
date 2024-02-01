@@ -17,7 +17,7 @@ function App() {
 
       if(employeeId !== ''){
         const response = await axios.post(
-          'https://hrms-heliverse.onrender.com/checkin/createCheckin',
+          'https://hrms-heliverse.onrender.com/checkin/autoCheckin',
           {
             log_type: logType,
             log_time: new Date(logTime).toISOString(),
