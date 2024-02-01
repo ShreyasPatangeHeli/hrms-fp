@@ -7,12 +7,26 @@ import './App.css';
 function App() {
   const [logTime, setLogTime] = useState<string>('');
   const [employeeDeviceId, setEmployeeDeviceId] = useState<string>('');
+  const [employeeId, setEmployeeId] = useState<string>('');
   const [logType, setLogType] = useState<string>(''); 
   const [setData] = useState<any>(null);
 
 
   const handleButtonClick = async () => {
     try {
+
+      if(employeeId !== ''){
+        const response = await axios.post(
+          'https://hrms-heliverse.onrender.com/checkin/createCheckin',
+          {
+            log_type: logType,
+            log_time: new Date(logTime).toISOString(),
+            employee_id: employeeId
+          }
+        );
+        setData(response.data)
+      }else{
+
       const response = await axios.post(
         'https://hrms-heliverse.onrender.com/checkin/autoCheckin',
         {
@@ -22,6 +36,7 @@ function App() {
         }
       );
       setData(response.data)
+      }
     } catch (error : any) {
       setData(error.response.data)
       console.log(error);
@@ -57,6 +72,14 @@ function App() {
           className="border p-2"
           value={employeeDeviceId}
           onChange={(e) => setEmployeeDeviceId(e.target.value)}
+        />
+
+        <input
+          type="text"
+          placeholder="Employee ID"
+          className="border p-2"
+          value={employeeId}
+          onChange={(e) => setEmployeeId(e.target.value)}
         />
 
         <select
