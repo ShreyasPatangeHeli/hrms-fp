@@ -21,7 +21,7 @@ function App() {
           {
             log_type: logType,
             log_time: new Date(logTime).toISOString(),
-            employee_id: employeeId
+            user_id: employeeId
           }
         );
         setData(response.data)
